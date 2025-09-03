@@ -1,0 +1,15 @@
+@import "tailwindcss";
+@theme {
+  --color-app-black: #191919;
+  --color-primary: #292929;
+
+  --color-muted: #808080;
+  --font-sans: "Roboto", sans-serif;
+}
+
+@layer base {
+  html {
+    font-family: var(--font-sans);
+    color: var(--color-primary);
+  }
+}
