@@ -1,0 +1,3 @@
+<template>
+    создать пост
+</template>
