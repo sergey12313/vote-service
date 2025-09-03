@@ -1,0 +1,3 @@
+<template>
+    пост
+</template>
