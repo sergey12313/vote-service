@@ -23,4 +23,12 @@ export default defineNuxtConfig({
     "@nuxt/image",
     "@nuxt/scripts",
   ],
+  icon: {
+    customCollections: [
+      {
+        prefix: "app-icon",
+        dir: "./app/assets/icons",
+      },
+    ],
+  },
 });

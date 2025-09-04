@@ -1,5 +1,12 @@
+<script setup lang="ts">
+import { AppSidebar } from "#components";
+</script>
+
 <template>
-  <main class="min-h-screen grid place-items-center ">
-    <slot />
-  </main>
+  <div class="h-screen grid grid-cols-[72px_1fr]">
+    <AppSidebar class="overflow-hidden" />
+    <main>
+      <slot />
+    </main>
+  </div>
 </template>
