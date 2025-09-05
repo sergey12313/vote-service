@@ -15,6 +15,9 @@ export default defineNuxtConfig({
       tailwindcss(),
     ],
   },
+  runtimeConfig: { public: {
+    apiUrl: "",
+  } },
   app: {
     pageTransition: {
       name: "page",
