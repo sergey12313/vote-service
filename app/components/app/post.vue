@@ -1,43 +1,38 @@
 <script setup lang="ts">
-import { formatDistance, subDays } from "date-fns";
+import { formatDistance } from "date-fns";
 import { ru } from "date-fns/locale";
 
-type Props = {
-  avatarUrl: string;
-  companyName: string;
-  createdAt: Date;
-  title: string;
-  text: string;
-  likeCount: number;
-  unlikeCount: number;
-  id: string;
+import type { Post } from "~/domain/post";
 
-};
 const {
+  post,
+  author,
+  full = true,
+} = defineProps<{ post: Post; author: { avatarUrl: string; userName: string }; full?: boolean }>();
 
-  avatarUrl,
-  companyName,
-  createdAt,
+const {
+  published_at,
+  content,
   title,
-  text,
-  likeCount,
-  unlikeCount,
-} = defineProps<Props>();
+  likes,
+  dislikes,
+
+} = post;
 
 const formattedDate = computed(() => {
-  return formatDistance(createdAt, new Date(), { addSuffix: true, locale: ru });
+  return formatDistance(new Date(published_at), new Date(), { addSuffix: true, locale: ru });
 });
 const formattedText = computed(() => {
-  return `${text.slice(0, 200)}...`;
+  return full ? content : ` ${content.slice(0, 200)}...`;
 });
 </script>
 
 <template>
   <div class="text-primary flex flex-col gap-3 py-4">
     <div class="flex items-center text-sm font-light">
-      <img :src="avatarUrl" class="w-6 h-6 rounded-full object-cover " alt="user avatar">
+      <img :src="author.avatarUrl" class="w-6 h-6 rounded-full object-cover " alt="user avatar">
       <span class="ml-3 mr-4">
-        {{ companyName }}
+        {{ author.userName }}
       </span>
       <span class="text-muted ">
         {{ formattedDate }}
@@ -45,7 +40,9 @@ const formattedText = computed(() => {
     </div>
 
     <h3 class="font-normal text-2xl">
-      {{ title }}
+      <NuxtLink :to="`/post/${post.id}`">
+        {{ title }}
+      </NuxtLink>
     </h3>
     <p>
       {{ formattedText }}
@@ -54,21 +51,21 @@ const formattedText = computed(() => {
       <div class="flex gap-1">
         <button class="flex items-center gap-2 hover:bg-gray-200 p-1 rounded cursor-pointer">
           <Icon name="lucide:thumbs-up" />
-          {{ likeCount }}
+          {{ likes }}
         </button>
         <button class="flex items-center gap-2 hover:bg-gray-200 p-1 rounded cursor-pointer">
           <Icon name="lucide:thumbs-down" />
-          {{ unlikeCount }}
+          {{ dislikes }}
         </button>
       </div>
       <div class="flex gap-2">
         <button class="flex items-center gap-2 hover:bg-gray-200 p-1 rounded cursor-pointer">
           <Icon name="lucide:trash" />
         </button>
-        <button class="flex items-center gap-2 hover:bg-gray-200 p-1 rounded cursor-pointer">
+        <NuxtLink :to="`/post/edit/${post.id}`" class="flex items-center gap-2 hover:bg-gray-200 p-1 rounded cursor-pointer">
           <Icon name="lucide:pencil" />
           Изменить
-        </button>
+        </NuxtLink>
       </div>
     </div>
   </div>

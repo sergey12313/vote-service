@@ -15,6 +15,9 @@ export default defineNuxtConfig({
       tailwindcss(),
     ],
   },
+  runtimeConfig: { public: {
+    apiUrl: "http://localhost:8080",
+  } },
   app: {
     pageTransition: {
       name: "page",
