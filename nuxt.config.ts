@@ -16,7 +16,7 @@ export default defineNuxtConfig({
     ],
   },
   runtimeConfig: { public: {
-    apiUrl: "",
+    apiUrl: "http://localhost:8080",
   } },
   app: {
     pageTransition: {

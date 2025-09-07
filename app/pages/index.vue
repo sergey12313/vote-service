@@ -18,7 +18,7 @@ const author = {
 </script>
 
 <template>
-  <div class="flex flex-col gap-4  w-[800px] mx-8">
-    <AppPost v-for="post in posts" :key="post.id" :post="post" :author="author" class="border-b border-gray-100 last:border-b-0" />
+  <div class="flex flex-col gap-4">
+    <AppPost v-for="post in posts" :key="post.id" :post="post" :full="false" :author="author" class="border-b border-gray-100 last:border-b-0" />
   </div>
 </template>

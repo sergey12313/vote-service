@@ -7,7 +7,8 @@ import type { Post } from "~/domain/post";
 const {
   post,
   author,
-} = defineProps<{ post: Post; author: { avatarUrl: string; userName: string } }>();
+  full = true,
+} = defineProps<{ post: Post; author: { avatarUrl: string; userName: string }; full?: boolean }>();
 
 const {
   published_at,
@@ -15,13 +16,14 @@ const {
   title,
   likes,
   dislikes,
+
 } = post;
 
 const formattedDate = computed(() => {
   return formatDistance(new Date(published_at), new Date(), { addSuffix: true, locale: ru });
 });
 const formattedText = computed(() => {
-  return `${content.slice(0, 200)}...`;
+  return full ? content : ` ${content.slice(0, 200)}...`;
 });
 </script>
 
@@ -38,7 +40,9 @@ const formattedText = computed(() => {
     </div>
 
     <h3 class="font-normal text-2xl">
-      {{ title }}
+      <NuxtLink :to="`/post/${post.id}`">
+        {{ title }}
+      </NuxtLink>
     </h3>
     <p>
       {{ formattedText }}
@@ -58,10 +62,10 @@ const formattedText = computed(() => {
         <button class="flex items-center gap-2 hover:bg-gray-200 p-1 rounded cursor-pointer">
           <Icon name="lucide:trash" />
         </button>
-        <button class="flex items-center gap-2 hover:bg-gray-200 p-1 rounded cursor-pointer">
+        <NuxtLink :to="`/post/edit/${post.id}`" class="flex items-center gap-2 hover:bg-gray-200 p-1 rounded cursor-pointer">
           <Icon name="lucide:pencil" />
           Изменить
-        </button>
+        </NuxtLink>
       </div>
     </div>
   </div>
